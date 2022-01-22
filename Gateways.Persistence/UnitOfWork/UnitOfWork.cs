@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Gateways.Persistence.DbContext;
+using Gateways.Persistence.Context;
 using Gateways.Persistence.UnitOfWork.Interface;
 using Gateways.Persistence.Repository;
 using Gateways.Persistence.Repository.Interface;
@@ -23,9 +23,9 @@ namespace Gateways.Persistence.UnitOfWork
             PeripheralDeviceRepository = deviceRepository;
         }
 
-        public int SaveChanges()
+        public async Task<int> SaveChangesAsync()
         {
-            return _context.SaveChanges();
+            return await _context.SaveChangesAsync();
         }
 
         #region Dispose

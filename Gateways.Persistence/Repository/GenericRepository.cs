@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Gateways.Persistence.Repository.Interface;
-using Gateways.Persistence.DbContext;
+using Gateways.Persistence.Context;
 
 namespace Gateways.Persistence.Repository
 {
@@ -72,6 +72,7 @@ namespace Gateways.Persistence.Repository
             _dbSet.UpdateRange(entities);
             return entities;
         }
+
 
         #region Dispose
 

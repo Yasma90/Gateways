@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateways.API", "Gateways.API\Gateways.API.csproj", "{BD472FAA-EFEA-4900-B55C-9B77276E51EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateways.API", "Gateways.API\Gateways.API.csproj", "{BD472FAA-EFEA-4900-B55C-9B77276E51EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateways.API.Test", "Gateways.API.Test\Gateways.API.Test.csproj", "{EA19EE42-65A2-47B7-B990-CEF81411FFF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateways.API.Test", "Gateways.API.Test\Gateways.API.Test.csproj", "{EA19EE42-65A2-47B7-B990-CEF81411FFF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateways.Persistence", "Gateways.Persistence\Gateways.Persistence.csproj", "{843ACC89-1F5F-4DE9-8088-DDDA18C534AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateways.Persistence", "Gateways.Persistence\Gateways.Persistence.csproj", "{843ACC89-1F5F-4DE9-8088-DDDA18C534AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateways.Infrastructure", "Gateways.Infrastructure\Gateways.Infrastructure.csproj", "{9ADB063D-9515-42F1-9329-BE25BA6791EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateways.Infrastructure", "Gateways.Infrastructure\Gateways.Infrastructure.csproj", "{9ADB063D-9515-42F1-9329-BE25BA6791EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateways.Domine", "Gateways.Domine\Gateways.Domine.csproj", "{EB617058-E3EC-4F39-A89A-0278E3B0B46E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateways.Domaine", "Gateways.Domaine\Gateways.Domaine.csproj", "{EB617058-E3EC-4F39-A89A-0278E3B0B46E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

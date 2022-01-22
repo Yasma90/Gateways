@@ -1,4 +1,4 @@
-﻿using Gateways.Domine;
+﻿using Gateways.Domaine;
 
 namespace Gateways.Persistence.Repository.Interface
 {

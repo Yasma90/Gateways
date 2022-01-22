@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using Gateways.Persistence.DbContext;
+using Gateways.Persistence.Context;
 using Gateways.Persistence.Repository;
 using Gateways.Infrastructure.Extension;
 using System.Reflection;
@@ -31,6 +31,8 @@ namespace Gateways.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddInfrastructure(Configuration.GetConnectionString("ConnectionStr"));
+            services.AddDbInitializer();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -38,23 +40,20 @@ namespace Gateways.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Gateways.API", Version = "v1" });
             });
 
-            //services.AddDbContext<GatewaysDbContext>(options =>
-            //        options.UseSqlServer(Configuration.GetConnectionString("ConnectionStr"), b => b.MigrationsAssembly(typeof(GatewaysDbContext)
-            //                              .GetTypeInfo().Assembly.GetName().Name)))
-            services.AddInfrastructure(Configuration.GetConnectionString("ConnectionStr"));
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.AddConfigureSeedData();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Gateways.API v1"));
             }
-
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
