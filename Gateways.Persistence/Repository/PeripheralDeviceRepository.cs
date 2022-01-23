@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Gateways.Domaine;
-using Gateways.Persistence.Context;
+using Gateways.Persistence;
 using Gateways.Persistence.Repository.Interface;
 
 namespace Gateways.Persistence.Repository

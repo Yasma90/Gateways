@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Gateways.Persistence.Context;
+using Gateways.Persistence;
 using Gateways.Persistence.UnitOfWork.Interface;
 using Gateways.Persistence.Repository;
 using Gateways.Persistence.Repository.Interface;

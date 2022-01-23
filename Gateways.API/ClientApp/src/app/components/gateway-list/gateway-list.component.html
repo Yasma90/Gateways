@@ -1,0 +1,38 @@
+<div class="jumbtron py-3">
+  <h1 class="display-4 text-center">Gateways Details</h1>
+
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <app-gateway-form></app-gateway-form>
+  </div>
+  <div class="col-md-6">
+    <p *ngIf="!service.list"><em>Loading...</em></p>
+    <table class="table" *ngIf="service.list">
+      <thead class="thead-light">
+        <tr>
+          <th>Name</th>
+          <th>Ip Address</th>
+          <th>Serial Number</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let gateway of service.list">
+          <td (click)="populateForm(gateway)">{{gateway.name}}</td>
+          <td (click)="populateForm(gateway)">{{gateway.ipAddress}}</td>
+          <td (click)="populateForm(gateway)">{{gateway.serialNumber}}</td>
+          <td>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="green"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" (click)="onDelete(gateway.id)" /></svg>
+          </td>
+          <td>
+            <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(gateway.id)"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+

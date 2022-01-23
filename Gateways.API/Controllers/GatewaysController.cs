@@ -35,7 +35,6 @@ namespace Gateways.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Gateway>> GetGateway(int id)
         {
-            //var gateway = await _context.Gateways.FindAsync(id);
             var gateway = await _unitOfWork.GatewayRepository.GetAsync(id);
 
             if (gateway == null)
@@ -51,7 +50,7 @@ namespace Gateways.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutGateway(int id, Gateway gateway)
         {
-            if (id != gateway.Id && !ModelState.IsValid)
+            if (!ModelState.IsValid || id != gateway.Id)
             {
                 return BadRequest();
             }

@@ -4,16 +4,15 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Gateways.Persistence.Repository.Interface;
-using Gateways.Persistence.Context;
+using Gateways.Persistence;
 
 namespace Gateways.Persistence.Repository
 {
-    public abstract class GenericRepository<TEntity /*,TContext*/> : IGenericRepository<TEntity>, IDisposable
+    public abstract class GenericRepository<TEntity> : IGenericRepository<TEntity>, IDisposable
        where TEntity : class
-       //where TContext : Microsoft.EntityFrameworkCore.DbContext
     {
 
-        private readonly GatewaysDbContext _context; //TContext
+        private readonly GatewaysDbContext _context;
         private readonly DbSet<TEntity> _dbSet;
         private bool disposed;
 
@@ -51,15 +50,9 @@ namespace Gateways.Persistence.Repository
             return entities;
         }
 
-        public async Task<TEntity> GetAsync(int id)
-        {
-            return await _dbSet.FindAsync(id);
-        }
+        public async Task<TEntity> GetAsync(int id) => await _dbSet.FindAsync(id);
 
-        public async Task<List<TEntity>> GetAllAsync()
-        {
-            return await _dbSet.ToListAsync();
-        }
+        public async Task<List<TEntity>> GetAllAsync() => await _dbSet.ToListAsync();
 
         public TEntity Update(TEntity entity)
         {

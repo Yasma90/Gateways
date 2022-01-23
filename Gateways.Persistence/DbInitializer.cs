@@ -1,5 +1,5 @@
 ﻿using Gateways.Domaine;
-using Gateways.Persistence.Context;
+using Gateways.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Gateways.Persistence.Context;
+using Gateways.Persistence;
 using Gateways.Domaine;
 using Gateways.Persistence.UnitOfWork.Interface;
 using Microsoft.Extensions.Logging;

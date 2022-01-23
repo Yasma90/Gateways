@@ -2,20 +2,14 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using Gateways.Persistence.Context;
-using Gateways.Persistence.Repository;
-using Gateways.Infrastructure.Extension;
-using System.Reflection;
+using Gateways.Infrastructure.Extensions;
 
 namespace Gateways.API
 {
@@ -31,22 +25,31 @@ namespace Gateways.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddInfrastructure(Configuration.GetConnectionString("ConnectionStr"));
-            services.AddDbInitializer();
-
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            }); 
+            
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Gateways.API", Version = "v1" });
             });
+            
+            services.AddInfrastructure(Configuration.GetConnectionString("ConnectionStr"));
+            if (Configuration.GetSection("InitSeedData").Value == "true")
+                services.AddDbInitializer();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            app.AddConfigureSeedData();
-
+        {            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -60,10 +63,15 @@ namespace Gateways.API
 
             app.UseAuthorization();
 
+            app.UseCors("CorsPolicy");
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+            if (Configuration.GetSection("InitSeedData").Value == "true")
+                app.AddConfigureSeedData();
         }
     }
 }
