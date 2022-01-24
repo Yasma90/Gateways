@@ -1,19 +1,20 @@
 <form novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit(form)">
   <input type="hidden" name="id" [value]="service.formData.id" />
-  <div class="form-group">
-    <label>Name</label>
-    <input class="form-control form-control-lg" placeholder="Name" name="name"
-       #name="ngModel" [(ngModel)]="service.formData.name"
-       required [class.invalid]="name.invalid && name.touched">
-  </div>
+
   <div class="form-row">
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-8">
+      <label>Name</label>
+      <input class="form-control form-control-lg" placeholder="Name" name="name"
+         #name="ngModel" [(ngModel)]="service.formData.name"
+         required [class.invalid]="name.invalid && name.touched">
+    </div>
+    <div class="form-group col-md-8">
       <label>Ip Address</label>
       <input class="form-control form-control-lg" placeholder="Ip Address" name="ipAddress"
          #ipAddress="ngModel" [(ngModel)]="service.formData.ipAddress"
          required maxlength="15" minlength="7" [class.invalid]="ipAddress.invalid && ipAddress.touched">
     </div>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-10">
       <label>Serial Number</label>
       <input class="form-control form-control-lg" placeholder="Serial Number" name="serialNumber"
          #serialNumber="ngModel" [(ngModel)]="service.formData.serialNumber"
@@ -21,6 +22,7 @@
     </div>
   </div>
   <div class="form-group">
-    <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="form.invalid"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>Submit</button>
+    <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="form.invalid">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>Submit</button>
   </div>
 </form>

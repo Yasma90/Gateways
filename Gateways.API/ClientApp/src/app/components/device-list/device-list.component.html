@@ -1,0 +1,35 @@
+
+  <div class="alert alert-info">
+    <b>Devices</b>
+  </div>
+
+  <div class="row">
+    <div class="col-mg-3">
+      <app-device-form></app-device-form>
+    </div>
+
+    <div class="col-md-8">
+    <p *ngIf="!service.list"><em>Loading...</em></p>
+    <table class="table" *ngIf="service.list">
+      <thead class="thead-light">
+        <tr>
+          <th><strong>Vendor</strong></th>
+          <th><strong>Status</strong></th>
+          <th><strong>Creation Date</strong></th>
+          <th><strong>Actions</strong></th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let dev of service.list">
+        <td (click)="populateForm(dev)">{{dev.vendor}}</td>
+        <td (click)="populateForm(dev)">{{dev.status==0?'Offline':'Online'}}</td>
+        <td (click)="populateForm(dev)">{{dev.created|date}}</td>
+        <td>
+          <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(dev.id)"></i>
+        </td>
+
+      </tr>
+    </tbody>
+    </table>
+    </div>
+  </div>

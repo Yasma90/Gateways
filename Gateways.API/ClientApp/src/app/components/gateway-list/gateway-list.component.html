@@ -1,9 +1,8 @@
-<div class="jumbtron py-3">
+<div class="jumbotron py-2">
   <h1 class="display-4 text-center">Gateways Details</h1>
-
 </div>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-4">
     <app-gateway-form></app-gateway-form>
   </div>
   <div class="col-md-6">
@@ -11,9 +10,10 @@
     <table class="table" *ngIf="service.list">
       <thead class="thead-light">
         <tr>
-          <th>Name</th>
-          <th>Ip Address</th>
-          <th>Serial Number</th>
+          <th><strong>Name</strong></th>
+          <th><strong>Ip Address</strong></th>
+          <th><strong>Serial Number</strong></th>
+          <th><strong>Devices</strong></th>
           <th></th>
           <th></th>
         </tr>
@@ -23,8 +23,10 @@
           <td (click)="populateForm(gateway)">{{gateway.name}}</td>
           <td (click)="populateForm(gateway)">{{gateway.ipAddress}}</td>
           <td (click)="populateForm(gateway)">{{gateway.serialNumber}}</td>
+          <td >{{gateway.peripheralDevices.length}}</td>
           <td>
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="green"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" (click)="onDelete(gateway.id)" /></svg>
+
+            <svg (click)="infoDevices(gateway.id)" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="green"><g><rect fill="none" height="24" width="24"/></g><g><g><rect height="2" width="9" x="13" y="7"/><rect height="2" width="9" x="13" y="15"/><rect height="2" width="6" x="16" y="11"/><polygon points="13,12 8,7 8,11 2,11 2,13 8,13 8,17"/></g></g></svg>
           </td>
           <td>
             <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(gateway.id)"></i>

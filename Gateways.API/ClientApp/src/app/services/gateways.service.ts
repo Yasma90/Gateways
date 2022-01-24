@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Gateway } from '../models/gateway.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { MessageService } from './message.service';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+
+import { API_Url } from 'urlconfig';
+import { Gateway } from '../models/gateway.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +17,9 @@ export class GatewaysService {
     private messageService: MessageService) { }
 
   formData: Gateway = new Gateway();
-  readonly baseUrl = 'https://localhost:44380/api/Gateways';
+  readonly baseUrl = `${API_Url}/Gateways`;
   list: Gateway[];
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -39,7 +42,6 @@ export class GatewaysService {
 
   refreshList(){
     this.http.get(this.baseUrl)
-    //.subscribe(data=> {console.log(data)})
     .toPromise()
     .then(res=>this.list = res as Gateway[]);
   }
@@ -61,14 +63,14 @@ export class GatewaysService {
         map(gateways => gateways[0]), // returns a {0|1} element array
         tap(h => {
           const outcome = h ? `fetched` : `did not find`;
-          this.log(`${outcome} hero id=${id}`);
+          this.log(`${outcome} gateway id=${id}`);
         }),
-        catchError(this.handleError<Gateway>(`getHero id=${id}`))
+        catchError(this.handleError<Gateway>(`getGateway id=${id}`))
       );
   }
 
   /** GET gateway by id. Will 404 if id not found */
-  getHero(id: number): Observable<Gateway> {
+  getGateway(id: number): Observable<Gateway> {
     const url = `${this.baseUrl}/${id}`;
     return this.http.get<Gateway>(url).pipe(
       tap(_ => this.log(`fetched gateway id=${id}`)),
@@ -77,7 +79,7 @@ export class GatewaysService {
   }
 
   /* GET gateways whose name contains search term */
-  searchHeroes(term: string): Observable<Gateway[]> {
+  searchGateway(term: string): Observable<Gateway[]> {
     if (!term.trim()) {
       // if not search term, return empty gateway array.
       return of([]);
@@ -93,8 +95,8 @@ export class GatewaysService {
   //////// Save methods //////////
 
   /** POST: add a new gateway to the server */
-  addHero(hero: Gateway): Observable<Gateway> {
-    return this.http.post<Gateway>(this.baseUrl, hero, this.httpOptions).pipe(
+  addGateway(gateway: Gateway): Observable<Gateway> {
+    return this.http.post<Gateway>(this.baseUrl, gateway, this.httpOptions).pipe(
       tap((newGateway: Gateway) => this.log(`added gateway w/ id=${newGateway.id}`)),
       catchError(this.handleError<Gateway>('addGateway'))
     );
@@ -110,7 +112,7 @@ export class GatewaysService {
     );
   }
 
-  /** PUT: update the hero on the server */
+  /** PUT: update the gateway on the server */
   upGateway(gateway: Gateway): Observable<any> {
     return this.http.put(this.baseUrl, gateway, this.httpOptions).pipe(
       tap(_ => this.log(`updated gateway id=${gateway.id}`)),
@@ -138,7 +140,7 @@ export class GatewaysService {
       };
     }
 
-    /** Log a HeroService message with the MessageService */
+    /** Log a GatewayService message with the MessageService */
     private log(message: string) {
       this.messageService.add(`GatewayService: ${message}`);
     }

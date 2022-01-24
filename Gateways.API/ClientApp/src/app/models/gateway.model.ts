@@ -5,6 +5,5 @@ export class Gateway {
   name:string;
   ipAddress:string;
   serialNumber: string;
-  devicesCount: number = 0;
-  devices: Device[];
+  peripheralDevices: Device[];
 }
