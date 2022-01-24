@@ -5,13 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Gateways.Persistence.Repository.Interface;
 using Gateways.Persistence;
+using System.Linq.Expressions;
+using Gateways.Domaine;
 
 namespace Gateways.Persistence.Repository
 {
     public abstract class GenericRepository<TEntity> : IGenericRepository<TEntity>, IDisposable
        where TEntity : class
     {
-
         private readonly GatewaysDbContext _context;
         private readonly DbSet<TEntity> _dbSet;
         private bool disposed;
@@ -20,6 +21,28 @@ namespace Gateways.Persistence.Repository
         {
             _context = context;
             _dbSet = _context.Set<TEntity>();
+        }
+        
+        public async Task<List<TEntity>> GetAllAsync() => await _dbSet.ToListAsync();
+
+        public async Task<TEntity> GetbyIdAsync(int id) => await _dbSet.FindAsync(id);
+
+        public async Task<List<TEntity>> GetAsync(Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            string includeProperties = "")
+        {
+            IQueryable<TEntity> query = _dbSet;
+
+            if (filter != null)
+                query = query.Where(filter);
+
+            foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            return orderBy != null ? await orderBy(query).ToListAsync() : await query.ToListAsync();
         }
 
         public async Task<TEntity> AddAsync(TEntity entity)
@@ -49,11 +72,7 @@ namespace Gateways.Persistence.Repository
             _dbSet.RemoveRange(entities);
             return entities;
         }
-
-        public async Task<TEntity> GetAsync(int id) => await _dbSet.FindAsync(id);
-
-        public async Task<List<TEntity>> GetAllAsync() => await _dbSet.ToListAsync();
-
+        
         public TEntity Update(TEntity entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
@@ -65,7 +84,6 @@ namespace Gateways.Persistence.Repository
             _dbSet.UpdateRange(entities);
             return entities;
         }
-
 
         #region Dispose
 
@@ -98,6 +116,7 @@ namespace Gateways.Persistence.Repository
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+        
         #endregion
 
     }

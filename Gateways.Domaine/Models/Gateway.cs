@@ -28,7 +28,7 @@ namespace Gateways.Domaine
 
         public Gateway()
         {
-            PeripheralDevices = new HashSet<PeripheralDevice>();
+            //PeripheralDevices = new HashSet<PeripheralDevice>();
         }
     }
 }

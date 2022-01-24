@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Gateways.Persistence.Repository.Interface
 {
-    public interface IGenericRepository<T> where T:class 
+    public interface IGenericRepository<TEntity> where TEntity : class
     {
-        Task<List<T>> GetAllAsync();
-        Task<T> GetAsync(int Id);
-        Task<T> AddAsync(T entity);
-        Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities);
-        T Update(T entity);
-        IEnumerable<T> UpdateRange(IEnumerable<T> entities);
-        Task<T> DeleteAsync(int id);
-        IEnumerable<T> DeleteRange(IEnumerable<T> entities);
+        Task<List<TEntity>> GetAllAsync();
+        Task<TEntity> GetbyIdAsync(int Id);
+        Task<List<TEntity>> GetAsync(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "");
+        Task<TEntity> AddAsync(TEntity entity);
+        Task<IEnumerable<TEntity>> AddRangeAsync(IEnumerable<TEntity> entities);
+        TEntity Update(TEntity entity);
+        IEnumerable<TEntity> UpdateRange(IEnumerable<TEntity> entities);
+        Task<TEntity> DeleteAsync(int id);
+        IEnumerable<TEntity> DeleteRange(IEnumerable<TEntity> entities);
     }
 }

@@ -20,7 +20,7 @@ namespace Gateways.Domaine
         public DeviceStatus Status { get; set; } 
 
         [Required]
-        public virtual int GatewayId { get; set; }
+        public int GatewayId { get; set; }
 
         public virtual Gateway Gateway { get; set; }
     }

@@ -28,14 +28,14 @@ namespace Gateways.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Gateway>>> GetGateways()
         {
-            return await _unitOfWork.GatewayRepository.GetAllAsync();
+            return await _unitOfWork.GatewayRepository.GetAsync(includeProperties: "PeripheralDevices");
         }
 
         // GET: api/Gateways/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Gateway>> GetGateway(int id)
         {
-            var gateway = await _unitOfWork.GatewayRepository.GetAsync(id);
+            var gateway = await _unitOfWork.GatewayRepository.GetAsync(g => g.Id == id, includeProperties: "PeripheralDevices");
 
             if (gateway == null)
             {
@@ -43,7 +43,7 @@ namespace Gateways.Controllers
                 return NotFound();
             }
 
-            return gateway;
+            return gateway.FirstOrDefault();
         }
 
         // PUT: api/Gateways/5
@@ -109,7 +109,7 @@ namespace Gateways.Controllers
 
         private bool GatewayExists(int id)
         {
-            return _unitOfWork.GatewayRepository.GetAsync(id).Result != null;
+            return _unitOfWork.GatewayRepository.GetbyIdAsync(id).Result != null;
         }
 
 

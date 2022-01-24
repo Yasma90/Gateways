@@ -28,9 +28,10 @@ namespace Gateways.Controllers
 
         // GET: api/PeripheralDevices
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PeripheralDevice>>> GetPeripheralDevices()
+        public async Task<ActionResult<IEnumerable<PeripheralDevice>>> GetPeripheralDevices(int? gatewayId)
         {
-            //return await _context.PeripheralDevices.ToListAsync();
+            if (gatewayId.HasValue)
+                return await _unitOfWork.PeripheralDeviceRepository.GetAsync(d => d.GatewayId == gatewayId);
             return await _unitOfWork.PeripheralDeviceRepository.GetAllAsync();
         }
 
@@ -38,8 +39,7 @@ namespace Gateways.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<PeripheralDevice>> GetPeripheralDevice(int id)
         {
-            //var peripheralDevice = await _context.PeripheralDevices.FindAsync(id);
-            var peripheralDevice = await _unitOfWork.PeripheralDeviceRepository.GetAsync(id);
+            var peripheralDevice = await _unitOfWork.PeripheralDeviceRepository.GetbyIdAsync(id);
 
             if (peripheralDevice == null)
             {
@@ -54,12 +54,11 @@ namespace Gateways.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPeripheralDevice(int id, PeripheralDevice peripheralDevice)
         {
-            if (id != peripheralDevice.Id)
+            if (!ModelState.IsValid || id != peripheralDevice.Id)
             {
                 return BadRequest();
             }
 
-            //_context.Entry(peripheralDevice).State = EntityState.Modified;
             _unitOfWork.PeripheralDeviceRepository.Update(peripheralDevice);
             try
             {
@@ -83,11 +82,13 @@ namespace Gateways.Controllers
         }
 
         // POST: api/PeripheralDevices
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<PeripheralDevice>> PostPeripheralDevice(PeripheralDevice device)
         {
-            //_context.PeripheralDevices.Add(device);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
             await _unitOfWork.PeripheralDeviceRepository.AddAsync(device);
             await _unitOfWork.SaveChangesAsync();
 
@@ -98,7 +99,6 @@ namespace Gateways.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePeripheralDevice(int id)
         {
-            //var device = await _context.PeripheralDevices.FindAsync(id);
             var device = await _unitOfWork.PeripheralDeviceRepository.DeleteAsync(id);
             if (device == null)
             {
@@ -110,9 +110,7 @@ namespace Gateways.Controllers
             return NoContent();
         }
 
-        private bool PeripheralDeviceExists(int id)
-        {
-            return _unitOfWork.PeripheralDeviceRepository.GetAsync(id).Result != null;
-        }
+        private bool PeripheralDeviceExists(int id) => _unitOfWork.PeripheralDeviceRepository.GetbyIdAsync(id).Result != null;
+
     }
 }
