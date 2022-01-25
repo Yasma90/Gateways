@@ -24,13 +24,15 @@ namespace Gateways.API.Test
         public void Setup()
         {
             //Create in Memory Database
-            var dbName = $"GayewayssDb_{DateTime.Now.ToFileTimeUtc()}";
+            var dbName = $"GatewaysDb_{DateTime.Now.ToFileTimeUtc()}";
             _options = new DbContextOptionsBuilder<GatewaysDbContext>()
             .UseInMemoryDatabase(databaseName: dbName)
             .Options;
 
             _context = new GatewaysDbContext(_options);
         }
+
+        #region Gateway
 
         [Test]
         public async Task GetGatewaysAsync_Success_Test()
@@ -57,7 +59,7 @@ namespace Gateways.API.Test
             Assert.AreEqual("Gateway_1", gateway.Name);
             Assert.AreEqual(2, gateway.PeripheralDevices.Count);
         }
-                
+
         [Test]
         public async Task DeleteAsync_Success_Test()
         {
@@ -74,28 +76,35 @@ namespace Gateways.API.Test
         [Test]
         public async Task CreateAsync_Success_Test()
         {
-            var repository = await CreateRepositoryAsync();
+            var gatRepository = await CreateRepositoryAsync();
+            var devRepository = new PeripheralDeviceRepository(_context);
 
             // Act
-            await repository.AddAsync(new Gateway()
+            var gateway = new Gateway()
             {
+                IPAddress = "localhost",
                 Name = "Some Gateway",
-                PeripheralDevices = new List<PeripheralDevice>()
-                {
-                    new PeripheralDevice {
-                        Vendor = $"Vendor_90",
-                        Created = DateTime.Now,
-                        Status = (DeviceStatus)1
-                    }
-                }
-            });
+                SerialNumber = Guid.NewGuid().ToString()
+            };
+            await gatRepository.AddAsync(gateway);
+
+            var device = new PeripheralDevice()
+            {
+                Vendor = "Iphone",
+                Status = 0,
+                GatewayId = gateway.Id
+            };
+            await devRepository.AddAsync(device);
             await _context.SaveChangesAsync();
+
             // Assert
-            var gateways = await repository.GetAllAsync();
+            var gateways = await gatRepository.GetAllAsync();
+            var devices = await devRepository.GetAsync(d => d.GatewayId == gateway.Id);
             Assert.AreEqual(4, gateways.Count);
+            Assert.AreEqual(1, devices.Count);
         }
 
-
+        #endregion
 
         #region Help Methods
 
@@ -115,20 +124,21 @@ namespace Gateways.API.Test
                 {
                     IPAddress = $"127.0.0.{index}",
                     Name = $"Gateway_{index}",
+                    SerialNumber = Guid.NewGuid().ToString(),
                     PeripheralDevices = new List<PeripheralDevice>()
                     {
-                    new PeripheralDevice
-                    {
-                        Vendor = $"Gateway_Vendor_1{index}",
-                        Status = (DeviceStatus)0,
-                        Created = DateTime.Now
-                    },
-                    new PeripheralDevice
-                    {
-                        Vendor = $"Gateway_Vendor_2{index}",
-                        Status = (DeviceStatus)1,
-                        Created = DateTime.Now
-                    },
+                        new PeripheralDevice
+                        {
+                            Vendor = $"Gateway_Vendor_1{index}",
+                            Status = index%2==0? 0: (DeviceStatus)1,
+                            Created = DateTime.Now
+                        },
+                        new PeripheralDevice
+                        {
+                            Vendor = $"Gateway_Vendor_2{index}",
+                            Status = (DeviceStatus)1,
+                            Created = DateTime.Now
+                        },
                     }
                 };
 
