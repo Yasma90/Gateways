@@ -32,8 +32,6 @@ namespace Gateways.API.Test
             _context = new GatewaysDbContext(_options);
         }
 
-        #region Gateway
-
         [Test]
         public async Task GetGatewaysAsync_Success_Test()
         {
@@ -103,8 +101,6 @@ namespace Gateways.API.Test
             Assert.AreEqual(4, gateways.Count);
             Assert.AreEqual(1, devices.Count);
         }
-
-        #endregion
 
         #region Help Methods
 

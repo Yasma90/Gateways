@@ -1,9 +1,11 @@
-# Gateways Web API Project
+# Gateways Web API Project  && UI 
+Gateways project ASP .Net 5 Web Api and ui with angular 13
+
 To get more details go the API documentation /swagger 
 
 ## Development server
 
-Run `dotnet run` for a dev server. Navigate to `http://localhost:53388/`. The app will automatically reload if you change any of the source files.
+Run `dotnet run --project Gateways.API` for a dev server. Navigate to `https://localhost:5001` or `https://localhost:5001`. The app will automatically reload if you change any of the source files.
 
 ## Build
 
