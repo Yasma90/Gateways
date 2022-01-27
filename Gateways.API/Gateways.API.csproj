@@ -24,7 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Gateways.Domaine\Gateways.Domain.csproj" />
+	  <ProjectReference Include="..\Gateways.Domain\Gateways.Domain.csproj" />
 	  <ProjectReference Include="..\Gateways.Infrastructure\Gateways.Infrastructure.csproj" />
 	  <ProjectReference Include="..\Gateways.Persistence\Gateways.Persistence.csproj" />
 	</ItemGroup>

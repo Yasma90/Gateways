@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Gateways.Domain\Gateways.Domain.csproj" />
     <ProjectReference Include="..\Gateways.Persistence\Gateways.Persistence.csproj" />
   </ItemGroup>
 
