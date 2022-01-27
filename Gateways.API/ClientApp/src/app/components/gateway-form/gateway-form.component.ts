@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -14,6 +15,8 @@ import { GatewaysService } from 'src/app/services/gateways.service';
 
 export class GatewayFormComponent implements OnInit {
 
+  message : string;
+
   constructor(public service:GatewaysService,
     private toastr:ToastrService) { }
 
@@ -28,13 +31,23 @@ export class GatewayFormComponent implements OnInit {
   }
 
   addRecord(form : NgForm){
-    this.service.postGateway().subscribe(
+    this.service.postGateway()
+    .subscribe(
       res => {
         this.resetForm(form);
         this.service.refreshList();
         this.toastr.success('Submitted successfully', 'Gateway Resgister');
       },
-      err => {console.log(err);}
+      (err: HttpErrorResponse) => {
+        if(err instanceof Error){
+          this.message = `An error occured ${err.error.message}`;
+          }
+          else {
+            this.message=`Backend returned error code ${err.status} ${err.error.errors} \n${err.error.message} `;
+          }
+
+        console.log(err);
+        }
     );
   }
 

@@ -16,7 +16,7 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-	  <ProjectReference Include="..\Gateways.Domaine\Gateways.Domaine.csproj" />
+	  <ProjectReference Include="..\Gateways.Domaine\Gateways.Domain.csproj" />
 	</ItemGroup>
 
 </Project>

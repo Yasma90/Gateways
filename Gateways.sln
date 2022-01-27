@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateways.Persistence", "Gat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateways.Infrastructure", "Gateways.Infrastructure\Gateways.Infrastructure.csproj", "{9ADB063D-9515-42F1-9329-BE25BA6791EE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateways.Domaine", "Gateways.Domaine\Gateways.Domaine.csproj", "{EB617058-E3EC-4F39-A89A-0278E3B0B46E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateways.Domain", "Gateways.Domain\Gateways.Domain.csproj", "{EB617058-E3EC-4F39-A89A-0278E3B0B46E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

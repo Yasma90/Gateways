@@ -1,4 +1,4 @@
-﻿using Gateways.Domaine;
+﻿using Gateways.Domain;
 using Gateways.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

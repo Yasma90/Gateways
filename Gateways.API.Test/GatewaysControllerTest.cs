@@ -1,4 +1,4 @@
-﻿using Gateways.Domaine;
+﻿using Gateways.Domain;
 using Gateways.Persistence;
 using Gateways.Persistence.Repository;
 using Gateways.Persistence.Repository.Interface;

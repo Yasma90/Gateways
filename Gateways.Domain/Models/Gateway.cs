@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Gateways.Domaine
+namespace Gateways.Domain
 {
     public class Gateway//: IGateway
     {

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Gateways.Domaine;
+using Gateways.Domain;
 using Gateways.Persistence.UnitOfWork.Interface;
 
 namespace Gateways.Controllers

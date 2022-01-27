@@ -16,6 +16,7 @@ import { GatewayAddComponent } from './components/gateway-add/gateway-add.compon
 import { GatewayFormComponent } from './components/gateway-form/gateway-form.component';
 import { DeviceFormComponent } from './components/device-form/device-form.component';
 import { DeviceListComponent } from './components/device-list/device-list.component';
+import { ConfigAppComponent } from './components/config-app/config-app.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { DeviceListComponent } from './components/device-list/device-list.compon
     GatewayFormComponent,
     GatewayAddComponent,
     DeviceFormComponent,
-    DeviceListComponent
+    DeviceListComponent,
+    ConfigAppComponent
   ],
   imports: [
     BrowserModule,

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations.Internal;
-using Gateways.Domaine;
+using Gateways.Domain;
 
 namespace Gateways.Persistence
 {

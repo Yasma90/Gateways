@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Gateways.Persistence.Repository.Interface;
 using Gateways.Persistence;
 using System.Linq.Expressions;
-using Gateways.Domaine;
+using Gateways.Domain;
 
 namespace Gateways.Persistence.Repository
 {
