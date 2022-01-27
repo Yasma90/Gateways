@@ -5,7 +5,7 @@ To get more details go the API documentation /swagger
 
 ## Development server
 
-Run `dotnet run --project Gateways.API` for a dev server. Navigate to `https://localhost:5001` or `https://localhost:5001`. The app will automatically reload if you change any of the source files.
+Run `dotnet run --project Gateways.API` for a dev server. Navigate to `https://localhost:5001` or `http://localhost:5000`. The app will automatically reload if you change any of the source files.
 
 ## Build
 

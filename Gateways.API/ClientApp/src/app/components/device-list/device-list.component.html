@@ -1,14 +1,14 @@
 
   <div class="alert alert-info">
-    <b>Devices</b>
+    <b>Peripheral Devices</b>
   </div>
 
   <div class="row">
-    <div class="col-mg-3">
+    <div class="col-md-3">
       <app-device-form></app-device-form>
     </div>
 
-    <div class="col-md-8">
+    <div class="col-md-9 center">
     <p *ngIf="!service.list"><em>Loading...</em></p>
     <table class="table" *ngIf="service.list">
       <thead class="thead-light">
